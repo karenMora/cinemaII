@@ -9,6 +9,7 @@ import edu.eci.arsw.cinema.model.Cinema;
 import edu.eci.arsw.cinema.model.CinemaFunction;
 import edu.eci.arsw.cinema.model.Movie;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -71,4 +72,8 @@ public interface CinemaPersitence {
      * @throws CinemaPersistenceException 
      */
     public List<Movie> getFilteringByAvailability(String cinema, String date, int seat) throws CinemaPersistenceException;
+
+    public Set<Cinema> getAllCinema();
+    
+    public CinemaFunction getCinemaByNameDateMovieName(String name ,String date,String moviename);
 }

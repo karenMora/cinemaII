@@ -11,6 +11,7 @@ import edu.eci.arsw.cinema.model.Movie;
 import edu.eci.arsw.cinema.persistence.CinemaException;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.persistence.CinemaPersitence;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class CinemaServices {
     }
     
     public Set<Cinema> getAllCinemas(){
-        return null;
+        return cps.getAllCinema();
     }
     
     /**
@@ -52,11 +53,7 @@ public class CinemaServices {
     }
     
     public List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date) throws CinemaPersistenceException {
-        List<CinemaFunction> funciones=null;
-        for(CinemaFunction f: cps.getCinema(cinema).getFunctions()){
-            funciones.add(f);
-        }
-        return funciones;
+        return cps.getFunctionsbyCinemaAndDate(cinema, date);
     }
     
     public List<Movie> getFilteredByGender(Cinema cinema, String date, int genero) throws CinemaPersistenceException{
@@ -66,4 +63,9 @@ public class CinemaServices {
     public List<Movie> getFilteringByAvailability(String cinema, String date, int seat) throws CinemaPersistenceException{
         return cps.getFilteringByAvailability(cinema, date, seat);
     }
+    
+    public CinemaFunction getCinemaByNameDateMovieName(String cinema, String date, String moviename){
+        return cps.getCinemaByNameDateMovieName(date, date, moviename);
+    }
+    
 }

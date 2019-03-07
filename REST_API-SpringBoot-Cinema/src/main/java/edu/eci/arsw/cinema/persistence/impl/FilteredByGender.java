@@ -13,6 +13,7 @@ import edu.eci.arsw.cinema.persistence.CinemaException;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.persistence.CinemaPersitence;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -49,6 +50,16 @@ public class FilteredByGender implements CinemaPersitence{
 
     @Override
     public List<Movie> getFilteringByAvailability(String cinema, String date, int seat) throws CinemaPersistenceException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Set<Cinema> getAllCinema() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public CinemaFunction getCinemaByNameDateMovieName(String name, String date, String moviename) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -14,8 +14,10 @@ import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.persistence.CinemaPersitence;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.springframework.stereotype.Component;
 
 /**
@@ -96,7 +98,13 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
 
     @Override
     public Cinema getCinema(String name) throws CinemaPersistenceException {
-        return cinemas.get(name);
+        if(cinemas.containsKey(name)){
+            Cinema cinema=cinemas.get(name);
+            return cinema;
+        }else{
+            throw new CinemaPersistenceException("NO existe ese cinema");
+        }
+        //return cinemas.get(name);
     }
 
     @Override
@@ -117,4 +125,26 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public Set<Cinema> getAllCinema() {
+        Set<Cinema> setCinemas=new HashSet<>(cinemas.values());
+        return setCinemas;
+    }
+
+    @Override
+    public CinemaFunction getCinemaByNameDateMovieName(String name, String date, String moviename) {
+        CinemaFunction funciones=new CinemaFunction();
+        for (CinemaFunction funcionCine: cinemas.get(name).getFunctions()){
+            if( funcionCine.getDate().equals(date) && funcionCine.getMovie().getName().equals(moviename)){
+                funciones=funcionCine;
+            }
+        }
+        return funciones;
+    }
 }
+
+
+
+
+
+
