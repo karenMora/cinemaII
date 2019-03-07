@@ -9,18 +9,23 @@ import edu.eci.arsw.cinema.model.Cinema;
 import edu.eci.arsw.cinema.persistence.CinemaException;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.services.CinemaServices;
+import java.lang.ProcessBuilder.Redirect.Type;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javafx.scene.input.KeyCode.X;
 //import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import static org.springframework.http.converter.json.Jackson2ObjectMapperBuilder.json;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import org.springframework.web.bind.annotation.RestController;
 /**
  *
@@ -79,5 +84,19 @@ public class CinemaAPIController {
            return new ResponseEntity<>("404 NOT FOUND",HttpStatus.NOT_FOUND);
         }
     }
+    
+    //un cliente http pueda registrar una nueva función a un determinado cine 
+    @RequestMapping(value="{name}’", method = RequestMethod.POST)
+    public ResponseEntity<?> RegistrarNuevaFuncionCine(@RequestBody String name){
+        try {
+            //registrar dato
+            //curl -i -X POST -HContent-Type:application/json -HAccept:application/json http:localhost8080/cinema/procinal -d '{{"movie":{"name":"Frozen","genre":"Kids"},"seats":[[true,true,true,true,true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true,true,true,true,true]],"date":"2019-03-28 15:30"}}'
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (Exception ex) {
+            Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("Error al Registrar la funcion",HttpStatus.FORBIDDEN);
+        }
+    }
+    
     
 }
