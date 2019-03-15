@@ -64,8 +64,16 @@ public class CinemaServices {
         return cps.getFilteringByAvailability(cinema, date, seat);
     }
     
-    public CinemaFunction getCinemaByNameDateMovieName(String cinema, String date, String moviename){
-        return cps.getCinemaByNameDateMovieName(date, date, moviename);
+    public CinemaFunction getCinemaByNameDateMovieName(String cinema, String date, String moviename) throws CinemaPersistenceException{
+        return cps.getCinemaByNameDateMovieName(cinema, date, moviename);
+    }
+
+    public void setFunccionCIne(CinemaFunction cinemaFn, String name) {
+        cps.setFunccionCIne(cinemaFn,name);
+    }
+
+    public void ActualizarFuncion(CinemaFunction cinemaFn, String name) {
+        cps.ActualizarFuncion(cinemaFn, name);
     }
     
 }

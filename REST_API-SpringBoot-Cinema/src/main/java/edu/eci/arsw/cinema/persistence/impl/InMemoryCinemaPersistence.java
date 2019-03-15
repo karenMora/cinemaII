@@ -133,18 +133,40 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
 
     @Override
     public CinemaFunction getCinemaByNameDateMovieName(String name, String date, String moviename) {
-        CinemaFunction funciones=new CinemaFunction();
+        CinemaFunction cinemaFuncion=null;
+        List<CinemaFunction> funciones=new ArrayList<>();
         for (CinemaFunction funcionCine: cinemas.get(name).getFunctions()){
-            if( funcionCine.getDate().equals(date) && funcionCine.getMovie().getName().equals(moviename)){
-                funciones=funcionCine;
+            if( funcionCine.getDate().equals(date)){
+                funciones.add(funcionCine);
             }
         }
-        return funciones;
+        for(CinemaFunction cinemaf:funciones){
+            if(cinemaf.getMovie().getName().equals(moviename)){
+                cinemaFuncion= cinemaf;
+            }
+        }
+        return cinemaFuncion;
+    }
+    
+    @Override
+    public void setFunccionCIne(CinemaFunction cinemaFn, String name) {
+        Cinema cine=cinemas.get(name);
+        cine.getFunctions().add(cinemaFn);
+    }
+
+    @Override
+    public void ActualizarFuncion(CinemaFunction cinemaFcn, String name) {
+        boolean temp=false;
+        Cinema cine=cinemas.get(name);
+        if(cinemas.get(name) != null){
+            for(CinemaFunction cinemaFuncion:cine.getFunctions()){
+                if(cinemaFuncion.getMovie().getName().equals(cinemaFcn.getMovie().getName())){
+                    cinemaFuncion.setDate(cinemaFcn.getDate());
+                }
+            }
+        }
+        if(!temp){
+            setFunccionCIne(cinemaFcn, name);
+        }
     }
 }
-
-
-
-
-
-

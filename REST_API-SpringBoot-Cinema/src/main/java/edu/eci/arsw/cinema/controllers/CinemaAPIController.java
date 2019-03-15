@@ -6,6 +6,7 @@
 package edu.eci.arsw.cinema.controllers;
 
 import edu.eci.arsw.cinema.model.Cinema;
+import edu.eci.arsw.cinema.model.CinemaFunction;
 import edu.eci.arsw.cinema.persistence.CinemaException;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.services.CinemaServices;
@@ -78,7 +79,7 @@ public class CinemaAPIController {
     @GetMapping("/{name}/{date}/{moviename}")
     public ResponseEntity<?> getCinemaByNameDateMovieName(@PathVariable String name,@PathVariable String date,@PathVariable String moviename){
         try{
-            return new ResponseEntity<>(cinemaServices.getCinemaByNameDateMovieName(name,date,moviename),HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(cinemaServices.getCinemaByNameDateMovieName(name, date, moviename),HttpStatus.ACCEPTED);
         }catch(Exception ex){
            Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
            return new ResponseEntity<>("404 NOT FOUND",HttpStatus.NOT_FOUND);
@@ -87,16 +88,26 @@ public class CinemaAPIController {
     
     //un cliente http pueda registrar una nueva función a un determinado cine 
     @RequestMapping(value="{name}’", method = RequestMethod.POST)
-    public ResponseEntity<?> RegistrarNuevaFuncionCine(@RequestBody String name){
+    public ResponseEntity<?> RegistrarNuevaFuncionCine(@RequestBody CinemaFunction cinemaFn, @PathVariable String name){
         try {
-            //registrar dato
-            //curl -i -X POST -HContent-Type:application/json -HAccept:application/json http:localhost8080/cinema/procinal -d '{{"movie":{"name":"Frozen","genre":"Kids"},"seats":[[true,true,true,true,true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true,true,true,true,true],[true,true,true,true,true,true,true,true,true,true,true,true]],"date":"2019-03-28 15:30"}}'
+            cinemaServices.setFunccionCIne(cinemaFn, name);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception ex) {
             Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("Error al Registrar la funcion",HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Error al Registrar la funcion",HttpStatus.ACCEPTED);
         }
     }
     
+    @RequestMapping(value="{name}’", method = RequestMethod.PUT)
+    public ResponseEntity<?> ActuaizarFuncion(@RequestBody CinemaFunction cinemaFn, @PathVariable String name){
+        try{
+            cinemaServices.ActualizarFuncion(cinemaFn,name);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }catch(Exception ex){
+            Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("Error al Registrar la funcion",HttpStatus.NOT_FOUND);
+        }
+        
+    }
     
 }

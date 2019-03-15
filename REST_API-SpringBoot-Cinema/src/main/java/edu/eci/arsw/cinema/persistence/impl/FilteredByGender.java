@@ -62,5 +62,15 @@ public class FilteredByGender implements CinemaPersitence{
     public CinemaFunction getCinemaByNameDateMovieName(String name, String date, String moviename) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void setFunccionCIne(CinemaFunction cinemaFn, String name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void ActualizarFuncion(CinemaFunction cinemaFn, String name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
